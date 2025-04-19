@@ -4,6 +4,8 @@ import {
   wrapLanguageModel,
 } from 'ai';
 import { xai } from '@ai-sdk/xai';
+import { groq } from "@ai-sdk/groq"
+import { google } from "@ai-sdk/google"
 import { isTestEnvironment } from '../constants';
 import {
   artifactModel,
@@ -23,13 +25,13 @@ export const myProvider = isTestEnvironment
     })
   : customProvider({
       languageModels: {
-        'chat-model': xai('grok-2-1212'),
+        'chat-model': google("gemini-1.5-pro"),
         'chat-model-reasoning': wrapLanguageModel({
-          model: xai('grok-3-mini-beta'),
+          model: groq("deepseek-r1-distill-llama-70b"),
           middleware: extractReasoningMiddleware({ tagName: 'think' }),
         }),
-        'title-model': xai('grok-2-1212'),
-        'artifact-model': xai('grok-2-1212'),
+        'title-model': google("gemini-1.5-pro"),
+        'artifact-model': google("gemini-1.5-pro"),
       },
       imageModels: {
         'small-model': xai.image('grok-2-image'),
